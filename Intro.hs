@@ -11,25 +11,29 @@ import Data.Char
 import Data.List
 import GHC.Generics
 
--- first vowelsq
+-- first vowelsq 1
 firstVowels :: String -> String
-firstVowels = undefined
+firstVowels str = [c | c <- str, toLower c `elem` "aeiou"] ++ [c | c <- str, toLower c `notElem` "aeiou"]
 
--- is anagram
+-- is anagram 2
 isAnagram :: String -> String -> Bool
-isAnagram = undefined
+isAnagram s1 s2 = sort (map toLower (filter (/= ' ') s1)) == sort (map toLower (filter (/= ' ') s2))
 
--- common suffix
+-- common suffix 3
 commonSuffix :: [String] -> String
-commonSuffix = undefined
+commonSuffix [] = ""
+commonSuffix strs = reverse (foldl1 commonPrefix (map reverse strs))
+  where
+    commonPrefix a b = takeWhile (uncurry (==)) (zip a b) >>= (\(x, _) -> [x])
 
--- intersection 
+-- intersection 4
 interseccion :: (Eq a) => [a] -> [a] -> [a]
-interseccion = undefined
-
--- ackerman
+interseccion xs ys = [y | y <- ys, y `elem` xs]
+-- ackerman 5
 ackerman :: Integer -> Integer -> Integer
-ackerman = undefined
+ackerman 0 n = n + 1
+ackerman m 0 = ackerman (m - 1) 1
+ackerman m n = ackerman (m - 1) (ackerman m (n - 1))
 
 -- quicksort
 quicksort :: (Ord a) => [a] -> [a]
