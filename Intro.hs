@@ -51,8 +51,9 @@ data BTree a = Empty
 -- bTreeInsert
 bTreeInsert :: (Ord a) => a -> BTree a -> BTree a
 bTreeInsert x Empty = Node x Empty Empty
-bTreeInsert x (Node y izq der) | x <= y = bTreeInsert x izq
-                               | x > y = bTreeInsert x der
+bTreeInsert x (Node y izq der) | x < y = Node y (bTreeInsert x izq) der
+                               | x > y = Node y izq (bTreeInsert x der)
+                               | x == y = Node y izq der
 -- bTreeSearch
 bTreeSearch :: (Ord a) => a -> BTree a -> Bool
 bTreeSearch x Empty = False
